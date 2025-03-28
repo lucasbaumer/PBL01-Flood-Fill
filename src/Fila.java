@@ -1,4 +1,4 @@
-public class Fila<T> {
+public class Fila<Int> {
     private Object[] fila;
     private int capacidade;
     private int frente;
@@ -13,7 +13,7 @@ public class Fila<T> {
         tamanho = 0;
     }
 
-    public void enfileirar(T elemento){
+    public void enfileirar(Int elemento){
         if(tamanho == capacidade){
             aumentarCapacidade();
         }
@@ -22,11 +22,11 @@ public class Fila<T> {
         tamanho++;
     }
 
-    public T desenfileirar(){
+    public Int desenfileirar(){
         if(estaVazia()){
             return null;
         }
-        T elemento = (T) fila[frente];
+        Int elemento = (Int) fila[frente];
         fila[frente] = null;
         frente = (frente + 1) % capacidade;
         tamanho --;

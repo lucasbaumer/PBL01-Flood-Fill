@@ -7,7 +7,7 @@ import java.io.InterruptedIOException;
 
 public class Main {
     public static void main(String[] args) {
-        File file = new File("src/pixelArt.png");
+        File file = new File("src/teste.png");
         if(!file.exists()){
             System.out.println("Arquivo de imagem não foi encontrado!");
         }
@@ -22,9 +22,12 @@ public class Main {
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setVisible(true);
 
+                ImageProcessor processor = new ImageProcessor(img, panel);
+                processor.processarImagem();
+
             }
-            catch (IOException e) {
-                throw new RuntimeException(e);
+            catch (Exception e) {
+                System.out.println("Erro: " + e.getMessage());
             }
         }
     }

@@ -1,4 +1,4 @@
-public class Pilha<T> {
+public class Pilha<Int> {
     private Object[] pilha;
     private int topo;
     private int capacidade;
@@ -9,18 +9,18 @@ public class Pilha<T> {
         topo = -1;
     }
 
-    public void empilhar(T elemento){
+    public void empilhar(Int elemento){
         if(topo == capacidade - 1){
             aumentarCapacidade();
         }
         pilha[++topo] = elemento;
     }
 
-    public T desempilhar(){
+    public Int desempilhar(){
         if (estaVazia()){
             return null;
         }
-        return (T) pilha[topo--];
+        return (Int) pilha[topo--];
     }
 
     public boolean estaVazia(){
