@@ -7,7 +7,7 @@ import java.io.InterruptedIOException;
 
 public class Main {
     public static void main(String[] args) {
-        File file = new File("src/teste.png");
+        File file = new File("src/pixelArt.png");
         if(!file.exists()){
             System.out.println("Arquivo de imagem não foi encontrado!");
         }
