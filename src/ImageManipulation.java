@@ -5,13 +5,13 @@ import java.awt.image.BufferedImage;
 public class ImageManipulation extends JPanel {
     private BufferedImage img;
 
-    public ImageManipulation(BufferedImage img){
+    public ImageManipulation(BufferedImage img) {
         this.img = img;
     }
 
     @Override
-    protected void paintComponent(Graphics g){
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(img, 0,0,this);
+        g.drawImage(img, 0, 0, this);
     }
 }

@@ -1,34 +1,42 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.InterruptedIOException;
 
 public class Main {
     public static void main(String[] args) {
-        File file = new File("src/pixelArt.png");
-        if(!file.exists()){
-            System.out.println("Arquivo de imagem não foi encontrado!");
+        File file = new File("src/teste.png");
+        if (!file.exists()) {
+            System.out.println("Arquivo não encontrado!");
+            return;
         }
-        else{
-            try{
-                BufferedImage img = ImageIO.read(file);
 
-                ImageManipulation panel = new ImageManipulation(img);
-                JFrame frame = new JFrame("Processando imagem...");
-                frame.add(panel);
-                frame.setSize(img.getWidth(), img.getHeight());
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setVisible(true);
+        try {
+            BufferedImage img = ImageIO.read(file);
+            ImageManipulation panel = new ImageManipulation(img);
 
-                ImageProcessor processor = new ImageProcessor(img, panel);
-                processor.processarImagem();
+            JFrame frame = new JFrame("Clique na área para preencher");
+            frame.add(panel);
+            frame.setSize(img.getWidth(), img.getHeight());
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-            }
-            catch (Exception e) {
-                System.out.println("Erro: " + e.getMessage());
-            }
+            ImageProcessorFila processor = new ImageProcessorFila(img, panel);
+//              ImageProcessorPilha processor = new ImageProcessorPilha(img, panel);
+
+            panel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    processor.iniciarFloodFill(e.getX(), e.getY());
+                }
+            });
+
+            frame.setVisible(true);
+        } catch (IOException e) {
+            System.out.println("Erro: " + e.getMessage());
         }
     }
 }

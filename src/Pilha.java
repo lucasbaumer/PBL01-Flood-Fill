@@ -1,42 +1,47 @@
 public class Pilha<Int> {
-    private Object[] pilha;
-    private int topo;
-    private int capacidade;
+    private class No {
+        Int elemento;
+        No proximo;
 
-    public Pilha(int capacidade){
-        this.capacidade = capacidade;
-        pilha = new Object[capacidade];
-        topo = -1;
+        public No(Int elemento) {
+            this.elemento = elemento;
+            this.proximo = null;
+        }
+    }
+
+    private No topo;
+    private int tamanho;
+
+    public Pilha(){
+        topo = null;
+        tamanho = 0;
     }
 
     public void empilhar(Int elemento){
-        if(topo == capacidade - 1){
-            aumentarCapacidade();
-        }
-        pilha[++topo] = elemento;
+        No novoNo = new No(elemento);
+        novoNo.proximo = topo;
+        topo = novoNo;
+        tamanho++;
     }
 
     public Int desempilhar(){
         if (estaVazia()){
             return null;
         }
-        return (Int) pilha[topo--];
+        Int elemento = topo.elemento;
+        topo = topo.proximo;
+        tamanho--;
+        return elemento;
     }
 
-    public boolean estaVazia(){
-        return topo == -1;
+    public boolean estaVazia() {
+        return topo == null;
     }
 
-    private void aumentarCapacidade(){
-        int novaCapacidade = capacidade * 2;
-        Object[] novaPilha = new Object[novaCapacidade];
-
-        for(int i = 0; i < capacidade; i++){
-            novaPilha[i] = pilha[i];
-        }
-
-        pilha = novaPilha;
-        capacidade = novaCapacidade;
+    public int getTamanho() {
+        return tamanho;
     }
+
 }
+
 

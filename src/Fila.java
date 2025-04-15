@@ -1,35 +1,50 @@
 public class Fila<Int> {
-    private Object[] fila;
-    private int capacidade;
-    private int frente;
-    private int tras;
+    private class No {
+        Int elemento;
+        No proximo;
+
+        public No(Int elemento) {
+            this.elemento = elemento;
+            this.proximo = null;
+        }
+    }
+
+    private No frente;
+    private No tras;
     private int tamanho;
 
-    public Fila(int capacidade){
-        this.capacidade = capacidade;
-        fila = new Object[capacidade];
-        frente = 0;
-        tras = -1;
+    public Fila(){
+        frente = null;
+        tras = null;
         tamanho = 0;
     }
 
     public void enfileirar(Int elemento){
-        if(tamanho == capacidade){
-            aumentarCapacidade();
+        No novoNo = new No(elemento);
+
+        if(estaVazia()) {
+            frente = novoNo;
+            tras = novoNo;
+        } else {
+            tras.proximo = novoNo;
+            tras = novoNo;
         }
-        tras = (tras + 1) % capacidade;
-        fila[tras] = elemento;
         tamanho++;
-    }
+        }
 
     public Int desenfileirar(){
         if(estaVazia()){
             return null;
         }
-        Int elemento = (Int) fila[frente];
-        fila[frente] = null;
-        frente = (frente + 1) % capacidade;
-        tamanho --;
+        Int elemento = frente.elemento;
+        frente = frente.proximo;
+
+        if(frente == null){
+            tras = null;
+        }
+
+        tamanho--;
+
         return elemento;
     }
 
@@ -37,16 +52,7 @@ public class Fila<Int> {
         return tamanho == 0;
     }
 
-    private void aumentarCapacidade(){
-        int novaCapacidade = capacidade * 2;
-        Object[] novaFila = new Object[novaCapacidade];
-        for(int i = 0; i < capacidade; i++){
-            novaFila[i] = fila[(frente + i) % capacidade];
-        }
-        fila = novaFila;
-        frente = 0;
-        tras = tamanho - 1;
-        capacidade = novaCapacidade;
-
+    public int getTamanho(){
+        return tamanho;
     }
 }
